@@ -5,7 +5,8 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 /*
     Class for responding to received messages and executing appropriate commands.
     @Author: Jacob Gnatz
-    @Date: 2019-11-22
+    @Creation Date: 2019-11-22
+    @Last Update: 2020-7-4
  */
 public class Commands extends ListenerAdapter {
     //Instance Variables
@@ -125,11 +126,11 @@ public class Commands extends ListenerAdapter {
 
     /*
         Internal method for documenting the help function.
-        @return: String that doesn't really explain the help function. 'Cause you're a bastard.
+        @return: String that doesn't really explain the help function.
      */
     private String explainHelp()
     {
-        return "Go suck a \uD83E\uDD9E. No infinite loops for you!";
+        return "Are you a scheming \uD83E\uDD9E? No infinite loops for you!";
     }
 
     /*
@@ -232,12 +233,13 @@ public class Commands extends ListenerAdapter {
         //Extract and modify display name
         keyValues[0] = keyValues[0].substring(keyValues[0].indexOf("display:{Name:\"")+15, keyValues[0].indexOf("}") + 1);
         keyValues[0] = keyValues[0].replaceAll("\\\\", "");
-        //Extract and modify skullowner ID
-        keyValues[1] = keyValues[1].substring(keyValues[1].indexOf("SkullOwner:Id:\"")+16);
-        keyValues[1] = keyValues[1].replaceAll("\"", "");
+        //Extract and modify the 4 skullowner ID values
+        for (int i = 1; i < 5; i++) {
+            keyValues[i] = keyValues[i].replaceAll("[^\\d-]", "");
+        }
         //Extract and modify texture value
-        keyValues[2] = keyValues[2].substring(keyValues[2].indexOf("Value:\"")+7, keyValues[2].indexOf("}"));
-        keyValues[2] = keyValues[2].replaceAll("\"", "");
+        keyValues[5] = keyValues[5].substring(keyValues[5].indexOf("Value:\"")+7, keyValues[5].indexOf("}"));
+        keyValues[5] = keyValues[5].replaceAll("\"", "");
 
         //Return keyValues
         return keyValues;
@@ -254,7 +256,10 @@ public class Commands extends ListenerAdapter {
                 "**Page " + pageCount + ":** *The name of your block and the link you got it from, in whatever convention you choose.*\n" +
                 "**Page " + ++pageCount + ":** " + keyValues[0] + "\n" +
                 "**Page " + ++pageCount + ":** " + keyValues[1] + "\n" +
-                "**Page " + ++pageCount + ":** " + keyValues[2] + "\n";
+                "**Page " + ++pageCount + ":** " + keyValues[2] + "\n" +
+                "**Page " + ++pageCount + ":** " + keyValues[3] + "\n" +
+                "**Page " + ++pageCount + ":** " + keyValues[4] + "\n" +
+                "**Page " + ++pageCount + ":** " + keyValues[5] + "\n";
         return sendStr;
     }
 

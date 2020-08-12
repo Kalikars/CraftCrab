@@ -247,19 +247,21 @@ public class Commands extends ListenerAdapter {
 
     /*
         Internal method for formatting a message for player usage from key values.
+        Note: This method was changed for 1.16, and uses an unorganized keyValues array.
         @return: String of the formatted keyvalues and basic instructions.
      */
     private String sendHeadMessage(String[] keyValues, MessageReceivedEvent event)
     {
-        int pageCount = 1;
-        String sendStr = "Hello <@" + event.getAuthor().getId() + ">! Here are your page values:\n" +
-                "**Page " + pageCount + ":** *The name of your block and the link you got it from, in whatever convention you choose.*\n" +
-                "**Page " + ++pageCount + ":** " + keyValues[0] + "\n" +
-                "**Page " + ++pageCount + ":** " + keyValues[1] + "\n" +
-                "**Page " + ++pageCount + ":** " + keyValues[2] + "\n" +
-                "**Page " + ++pageCount + ":** " + keyValues[3] + "\n" +
-                "**Page " + ++pageCount + ":** " + keyValues[4] + "\n" +
-                "**Page " + ++pageCount + ":** " + keyValues[5] + "\n";
+        int chatCount = 0, pageCount = 0;
+        String sendStr = "Hello <@" + event.getAuthor().getId() + ">! Here are your head values:\n" +
+                "**Chat Menu Values:**\n" +
+                "UUID " + ++chatCount + ": " + keyValues[1] + "\n" +
+                "UUID " + ++chatCount + ": " + keyValues[2] + "\n" +
+                "UUID " + ++chatCount + ": " + keyValues[3] + "\n" +
+                "UUID " + ++chatCount + ": " + keyValues[4] + "\n" +
+                "**Lectern Values:**\n" +
+                "Page " + ++pageCount + ": " + keyValues[0] + "\n" +
+                "Page " + ++pageCount + ": " + keyValues[5] + "\n";
         return sendStr;
     }
 
@@ -280,11 +282,11 @@ public class Commands extends ListenerAdapter {
     {
         return "`/head (give command)`\n" +
                 "**Description:** Returns a message with the values necessary to generate a playerhead based on the given playerhead command.\n\n" +
-                "**How to use:** Go to https://minecraft-heads.com/custom-heads and browse for a head decoration you would like to use.\n" +
-                "Click on the head and copy the `Give-Code` field.\n" +
-                "(Note: you must copy the entire code within the field.)\n" +
-                "Type `/head` proceeded by your copied code.\n" +
-                "A message will be then be returned containing the exact contents of each page for your Book & Quill.\n\n" +
+                "**How to use:**\n" +
+                "1) Go to https://minecraft-heads.com/custom-heads and browse for a head decoration you would like to use.\n" +
+                "2) Copy the `Give-Code` field on the head's page (Note: you must copy the entire code within the field.)\n" +
+                "3) Type `/head` and paste your give code.\n\n" +
+                "A message will be then be returned that contains the values necessary for using the head generator shrine.\n" +
                 "Questions? See #player-heads for more info.";
     }
 
